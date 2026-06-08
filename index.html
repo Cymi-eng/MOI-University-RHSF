@@ -3,221 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moi University Main Altar</title>
-
+    <title>Moi University Main Altar | Ministry of Repentance & Holiness</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
     <style>
-        .cinzel {
-            font-family: 'Cinzel', serif;
+        :root {
+            --gold: #d4a017;
+            --gold-light: #f0c040;
+            --gold-dim: #8a6510;
         }
+
+        * { scroll-behavior: smooth; }
+
+        .cinzel { font-family: 'Cinzel', serif; }
+        .cormorant { font-family: 'Cormorant Garamond', serif; }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.30s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+
+        /* Hero text animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-tag   { animation: fadeUp 0.8s ease 0.2s both; }
+        .hero-title { animation: fadeUp 0.8s ease 0.5s both; }
+        .hero-sub   { animation: fadeUp 0.8s ease 0.8s both; }
+        .hero-btns  { animation: fadeUp 0.8s ease 1.0s both; }
+
+        /* Gold shimmer divider */
+        .gold-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+        }
+
+        /* Card hover lift */
+        .card-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(212, 160, 23, 0.15);
+        }
+
+        /* Nav glass effect */
+        nav {
+            background: rgba(2, 6, 23, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Grain texture overlay */
+        .grain::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Decorative cross */
+        .cross-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            position: relative;
+        }
+        .cross-icon::before, .cross-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--gold-light);
+        }
+        .cross-icon::before { width: 2px; height: 100%; left: 50%; transform: translateX(-50%); }
+        .cross-icon::after  { width: 100%; height: 2px; top: 35%; }
+
+        /* Section pattern bg */
+        .pattern-bg {
+            background-image: radial-gradient(circle at 1px 1px, rgba(212,160,23,0.06) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
     </style>
 </head>
 
-<body class="bg-slate-950 text-white">
+<body class="bg-slate-950 text-white overflow-x-hidden">
 
-    <!-- NAVBAR -->
-    <nav class="bg-blue border-b border-yellow-600 sticky top-0 z-50">
+    <!-- ═══════════════════════════════════ NAVBAR ═══════════════════════════════════ -->
+    <nav class="border-b border-yellow-900/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
 
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="cross-icon mt-0.5"></div>
+                <div>
+                    <h1 class="cinzel text-white text-lg font-bold leading-tight tracking-wide">Moi University</h1>
+                    <p class="text-[10px] tracking-[4px] text-yellow-400 uppercase">Main Altar</p>
+                </div>
+            </a>
 
-            <div>
-                <h1 class="cinzel text-white text-xl font-bold">
-                    Moi University
-                </h1>
-                <p class="text-xs tracking-widest text-yellow-300">
-                    MAIN ALTAR
-                </p>
-            </div>
+            <!-- Mobile Button -->
+            <button id="menuBtn" class="md:hidden text-yellow-500 text-2xl z-50 focus:outline-none" aria-label="Toggle Menu">☰</button>
 
-            <button id="menuBtn"
-                class="md:hidden text-yellow-500 text-2xl">
-                ☰
-            </button>
-
-            <ul id="navMenu"
-                class="hidden md:flex gap-8 uppercase text-sm tracking-wider">
-
-                <li><a href="index.html" class="hover:text-yellow-500">Home</a></li>
-                <li><a href="about.html" class="hover:text-yellow-500">About</a></li>
-                <li><a href="ministries.html" class="hover:text-yellow-500">Ministries</a></li>
-                <li><a href="events.html" class="hover:text-yellow-500">Events</a></li>
-                <li><a href="sermons.html" class="hover:text-yellow-500">Sermons</a></li>
-                <li><a href="gallery.html" class="hover:text-yellow-500">Gallery</a></li>
-                <li><a href="contact.html" class="hover:text-yellow-500">Contact</a></li>
-
+            <!-- Nav Links -->
+            <ul id="navMenu" class="hidden md:flex gap-8 uppercase text-xs tracking-widest font-medium">
+                <li><a href="index.html"       class="hover:text-yellow-400 transition-colors py-1">Home</a></li>
+                <li><a href="about.html"       class="hover:text-yellow-400 transition-colors py-1">About</a></li>
+                <li><a href="ministries.html"  class="hover:text-yellow-400 transition-colors py-1">Ministries</a></li>
+                <li><a href="events.html"      class="hover:text-yellow-400 transition-colors py-1">Events</a></li>
+                <li><a href="sermons.html"     class="hover:text-yellow-400 transition-colors py-1">Sermons</a></li>
+                <li><a href="gallery.html"     class="hover:text-yellow-400 transition-colors py-1">Gallery</a></li>
+                <li><a href="contact.html"     class="hover:text-yellow-400 transition-colors py-1">Contact</a></li>
             </ul>
-
         </div>
-
     </nav>
 
-    <!-- HERO SECTION -->
-     
-   ```html
-<section class="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden">
+    <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+    <section class="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden grain">
 
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-        <img
-            src="Assets/images/Dept.Archbishop Alice.jpeg"
-            alt="Church Background"
-            class="w-full h-full object-cover opacity-30">
-    </div>
-
-    <!-- Dark Overlay -->
-    <div class="absolute inset-0 bg-slate-950/70"></div>
-
-    <!-- Content -->
-    <div class="relative z-10 max-w-4xl">
-
-        <p class="uppercase tracking-[5px] text-yellow-400 mb-6">
-            Ministry of Repentance and Holiness
-        </p>
-
-        <h1 class="cinzel text-5xl md:text-7xl font-bold leading-tight">
-            Moi University
-            <span class="block text-yellow-500">
-                Main Altar
-            </span>
-        </h1>
-
-        <p class="mt-8 text-lg md:text-2xl text-gray-300">
-            A Place of Worship, Fellowship, Prayer and Revival
-        </p>
-
-        <div class="mt-10 flex flex-wrap justify-center gap-4">
-
-            <a href="about.html"
-               class="bg-yellow-500 text-black px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition">
-                Learn More
-            </a>
-
-            <a href="contact.html"
-               class="border border-yellow-500 px-8 py-4 rounded-lg hover:bg-yellow-500 hover:text-black transition">
-                Join Us
-            </a>
-
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img src="Assets/images/Dept.Archbishop Alice.jpeg"
+                 alt="Moi University Main Altar Worship"
+                 class="w-full h-full object-cover opacity-25">
         </div>
 
-    </div>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/50 to-slate-950"></div>
 
-</section>
+        <!-- Gold radial glow -->
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 50% at 50% 60%, rgba(212,160,23,0.08) 0%, transparent 70%);"></div>
 
+        <!-- Content -->
+        <div class="relative z-10 max-w-5xl mx-auto">
 
-
-    <!-- FOOTER -->
-   <!-- FOOTER -->
-<footer class="bg-blue border-t border-yellow-600 py-12">
-
-    <div class="max-w-7xl mx-auto px-6">
-
-        <div class="grid md:grid-cols-3 gap-10">
-
-            <!-- Church Info -->
-            <div>
-
-                <h3 class="cinzel text-yellow-500 text-2xl font-bold">
-                    Moi University Main Altar
-                </h3>
-
-                <p class="text-gray-400 mt-4">
+            <div class="hero-tag flex items-center justify-center gap-3 mb-8">
+                <div class="gold-divider"></div>
+                <p class="uppercase tracking-[5px] text-yellow-400 text-xs font-medium">
                     Ministry of Repentance and Holiness
                 </p>
-
-                <p class="text-gray-500 mt-2">
-                    Preparing the way for the coming of the Messiah.
-                </p>
-
+                <div class="gold-divider"></div>
             </div>
 
-            <!-- Quick Links -->
-            <div>
+            <h1 class="hero-title cinzel text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+                Moi University
+                <span class="block text-yellow-400" style="text-shadow: 0 0 60px rgba(212,160,23,0.4);">
+                    Main Altar
+                </span>
+            </h1>
 
-                <h3 class="text-yellow-500 font-bold uppercase mb-4">
-                    Quick Links
-                </h3>
+            <p class="hero-sub cormorant mt-8 text-2xl md:text-3xl text-gray-300 italic font-light">
+                A Place of Worship, Fellowship, Prayer &amp; Revival
+            </p>
 
-                <ul class="space-y-2 text-gray-400">
+            <p class="hero-sub text-gray-500 text-sm tracking-widest uppercase mt-4">
+                Preparing the way for the coming of the Messiah
+            </p>
 
-                    <li><a href="index.html" class="hover:text-yellow-500">Home</a></li>
-
-                    <li><a href="about.html" class="hover:text-yellow-500">About</a></li>
-
-                    <li><a href="ministries.html" class="hover:text-yellow-500">Ministries</a></li>
-
-                    <li><a href="events.html" class="hover:text-yellow-500">Events</a></li>
-
-                    <li><a href="sermons.html" class="hover:text-yellow-500">Sermons</a></li>
-
-                    <li><a href="gallery.html" class="hover:text-yellow-500">Gallery</a></li>
-
-                    <li><a href="contact.html" class="hover:text-yellow-500">Contact</a></li>
-
-                </ul>
-
+            <div class="hero-btns mt-12 flex flex-wrap justify-center gap-4">
+                <a href="about.html"
+                   class="bg-yellow-500 text-slate-950 px-10 py-4 rounded-lg font-bold cinzel text-sm tracking-wider hover:bg-yellow-400 transition-all duration-300 hover:scale-105 shadow-lg shadow-yellow-500/20">
+                    Learn More
+                </a>
+                <a href="contact.html"
+                   class="border border-yellow-500/60 text-yellow-300 px-10 py-4 rounded-lg cinzel text-sm tracking-wider hover:bg-yellow-500 hover:text-slate-950 hover:font-bold transition-all duration-300">
+                    Join Us
+                </a>
             </div>
 
-            <!-- Socials -->
-            <div>
+            <!-- Scroll indicator -->
+            <div class="hero-btns mt-16 flex flex-col items-center gap-2 opacity-50">
+                <span class="text-xs tracking-widest uppercase text-gray-500">Scroll</span>
+                <div class="w-px h-10 bg-gradient-to-b from-yellow-600 to-transparent animate-pulse"></div>
+            </div>
 
-                <h3 class="text-yellow-500 font-bold uppercase mb-4">
-                    Connect With Us
-                </h3>
+        </div>
+    </section>
 
-                <div class="space-y-2 text-gray-400">
 
-                    <p>
-                        <a href="https://www.facebook.com/share/1A3vGvgHWT/" class="hover:text-yellow-500">
+    <!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+    <footer class="border-t border-yellow-900/40 py-16" style="background: rgba(2,6,23,0.98);">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="grid md:grid-cols-3 gap-12">
+
+                <!-- Church Info -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="cross-icon"></div>
+                        <h3 class="cinzel text-yellow-400 text-xl font-bold">Moi University Main Altar</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Ministry of Repentance and Holiness — Preparing the way for the coming of the Messiah.
+                    </p>
+                    <p class="text-gray-600 text-xs tracking-wider italic">
+                        "Sanctify yourselves, for tomorrow the LORD will do wonders among you." — Joshua 3:5
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-yellow-500 font-bold uppercase text-xs tracking-widest mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="index.html"      class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> Home</a></li>
+                        <li><a href="about.html"      class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> About</a></li>
+                        <li><a href="ministries.html" class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> Ministries</a></li>
+                        <li><a href="events.html"     class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> Events</a></li>
+                        <li><a href="sermons.html"    class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> Sermons</a></li>
+                        <li><a href="gallery.html"    class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> Gallery</a></li>
+                        <li><a href="contact.html"    class="hover:text-yellow-400 transition-colors flex items-center gap-2"><span class="text-yellow-700 text-xs">›</span> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Socials -->
+                <div>
+                    <h4 class="text-yellow-500 font-bold uppercase text-xs tracking-widest mb-6">Connect With Us</h4>
+                    <div class="space-y-3 text-sm">
+                        <a href="https://www.facebook.com/share/1A3vGvgHWT/" target="_blank"
+                           class="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+                            <span class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-xs group-hover:border-yellow-500 transition-colors">f</span>
                             Facebook
                         </a>
-                    </p>
-
-                    <p>
-                        <a href="#" class="hover:text-yellow-500">
+                        <a href="#" class="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+                            <span class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-xs group-hover:border-yellow-500 transition-colors">ig</span>
                             Instagram
                         </a>
-                    </p>
-
-                    <p>
-                        <a href="http://www.youtube.com/@MoiUniversityMainAltar" class="hover:text-yellow-500">
+                        <a href="http://www.youtube.com/@MoiUniversityMainAltar" target="_blank"
+                           class="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+                            <span class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-xs group-hover:border-yellow-500 transition-colors">▶</span>
                             YouTube
                         </a>
-                    </p>
-
-                    <p>
-                        <a href="https://www.tiktok.com/@moi._rhsf?_r=1&_t=ZS-95kTCG9SDRY" class="hover:text-yellow-500">
-                            Tiktok
+                        <a href="https://www.tiktok.com/@moi._rhsf?_r=1&_t=ZS-95kTCG9SDRY" target="_blank"
+                           class="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+                            <span class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-xs group-hover:border-yellow-500 transition-colors">♪</span>
+                            TikTok
                         </a>
-                    </p>
-                    <p>
-                        <a href="https://chat.whatsapp.com/BtVQjTdbh8i1L7orQdkkTv?s=cl&p=a&mlu=1" class="hover:text-yellow-500">
+                        <a href="https://chat.whatsapp.com/BtVQjTdbh8i1L7orQdkkTv?s=cl&p=a&mlu=1" target="_blank"
+                           class="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+                            <span class="w-8 h-8 rounded-full border border-gray-700 flex items-center justify-center text-xs group-hover:border-yellow-500 transition-colors">✆</span>
                             WhatsApp
                         </a>
-                    </p>
-
+                    </div>
                 </div>
 
             </div>
 
+            <!-- Bottom Footer -->
+            <div class="border-t border-gray-800/60 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-xs tracking-wider">
+                    © 2026 Moi University Main Altar. All Rights Reserved.
+                </p>
+                <p class="text-gray-700 text-xs tracking-widest uppercase">
+                    Ministry of Repentance &amp; Holiness
+                </p>
+            </div>
+
         </div>
+    </footer>
 
-        <!-- Bottom Footer -->
-
-        <div class="border-t border-gray-800 mt-10 pt-6 text-center">
-
-            <p class="text-gray-500 text-sm">
-                © 2026 Moi University Main Altar. All Rights Reserved.
-            </p>
-
-        </div>
-
-    </div>
-
-</footer>
     <script src="js/script.js"></script>
-
 </body>
 </html>
